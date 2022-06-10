@@ -6,13 +6,18 @@ import (
 	"time"
 )
 
-func timeCost(start time.Time) {
-	tc := time.Since(start)
-	fmt.Printf("本次遊玩耗時: %v\n", tc)
+func timeCost() func() {
+	start := time.Now()
+	return func() {
+		tc := time.Since(start)
+		fmt.Printf("本次遊玩耗時: %v\n", tc)
+	}
+
 }
 
 func main() {
-	defer timeCost(time.Now())
+
+	defer timeCost()()
 	rand.Seed(time.Now().UnixNano())
 	ansNumber := rand.Intn(100)
 	//fmt.Print("目前正確答為: ", ansNumber, "\n")
