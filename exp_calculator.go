@@ -1,8 +1,9 @@
 package main
 
-import "fmt"
-
-var userInputA, userInputB int
+import (
+	"fmt"
+)
+import UserInputStruct "go_playground/exp_calculator_utils"
 
 func addition(a int, b int) int {
 	return a + b
@@ -22,16 +23,17 @@ func formatPrint(icon string, r int) string {
 	return fmt.Sprint("a ", icon, " b = ", r)
 }
 
-func doAllCalculator(a int, b int) {
-	fmt.Println(formatPrint("+", addition(a, b)))
-	fmt.Println(formatPrint("-", subtraction(a, b)))
-	fmt.Println(formatPrint("*", multiplication(a, b)))
-	fmt.Println(formatPrint("/", division(a, b)))
+func doAllCalculator(userInput UserInputStruct.UserInput) {
+	fmt.Println(formatPrint("+", addition(userInput.A, userInput.B)))
+	fmt.Println(formatPrint("-", subtraction(userInput.A, userInput.B)))
+	fmt.Println(formatPrint("*", multiplication(userInput.A, userInput.B)))
+	fmt.Println(formatPrint("/", division(userInput.A, userInput.B)))
 }
 
 func main() {
+	userInput := UserInputStruct.UserInput{}
 	fmt.Println("Calculator")
 	fmt.Println("Pls input a and b value: ")
-	fmt.Scanln(&userInputA, &userInputB) // 50 5
-	doAllCalculator(userInputA, userInputB)
+	fmt.Scanln(&userInput.A, &userInput.B) // 50 5
+	doAllCalculator(userInput)
 }
